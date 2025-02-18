@@ -8,12 +8,12 @@ let books = [
     { id: 3, title: "Gachiakuta", author: "Kei Urana", imageUrl: "/public/Gachiakuta.jpg", year: 2024 }
 ];
 
-// GET all books
+// GET all books at /books
 router.get("/", (req, res) => {
     res.json(books);
 });
 
-// GET a book by ID
+// GET a book by ID at /books/(id) and return if nonexistent ID is present
 router.get("/:id", (req, res) => {
     const book = books.find(b => b.id === parseInt(req.params.id));
     if (!book) {
@@ -22,7 +22,7 @@ router.get("/:id", (req, res) => {
     res.json(book);
 });
 
-// POST a new book
+// POST a new book as new id if all required data for a book is there
 router.post("/", (req, res) => {
     const { title, author, imageUrl, year } = req.body;
 
@@ -59,7 +59,7 @@ router.put("/:id", (req, res) => {
     res.json(book);
 });
 
-// DELETE a book by ID
+// DELETE a book by ID if /book/(id) if valid existing ID
 router.delete("/:id", (req, res) => {
     const bookIndex = books.findIndex(b => b.id === parseInt(req.params.id));
     if (bookIndex === -1) {
@@ -70,4 +70,5 @@ router.delete("/:id", (req, res) => {
     res.json({ message: "Book deleted successfully" });
 });
 
+// export
 module.exports = router;
